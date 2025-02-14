@@ -1,0 +1,194 @@
+//Soal 1
+class TreeNode {
+    constructor(val) {
+        this.val = val;
+        this.left = this.right = null;
+    }
+}
+
+function inorderTraversal(root) {
+    const result = [];
+    function traverse(node) {
+        if (!node) return;
+        traverse(node.left);
+        result.push(node.val);
+        traverse(node.right);
+    }
+    traverse(root);
+    return result;
+}
+const root = new TreeNode(1);
+root.right = new TreeNode(2);
+root.right.left = new TreeNode(3);
+
+console.log(inorderTraversal(root));
+let spasi = "";
+console.log(spasi);
+
+//Soal 2
+class TreeNode2 {
+    constructor(val) {
+        this.val = val;
+        this.left = this.right = null;
+    }
+}
+
+function inorderTraversal(root) {
+    const result = [];
+    function traverse(node) {
+        if (!node) return;
+        traverse(node.left);
+        result.push(node.val);
+        traverse(node.right);
+    }
+    traverse(root);
+    return result;
+}
+
+function isValid(s) {
+    const stack = [];
+    const map = { ')': '(', '}': '{', ']': '[' };
+    
+    for (let char of s) {
+        if (char in map) {
+            if (stack.length === 0 || stack.pop() !== map[char]) {
+                return false;
+            }
+        } else {
+            stack.push(char);
+        }
+    }
+    return stack.length === 0;
+}
+
+// Membangun binary tree
+const root2 = new TreeNode2(1);
+root.right = new TreeNode2(2);
+root.right.left = new TreeNode2(3);
+
+console.log(inorderTraversal(root2));
+
+console.log(isValid("()[]{}"));
+console.log(isValid("(]"));
+console.log(isValid("([{}])"));
+console.log(isValid("({[}]"));
+let spasi2 = "";
+console.log(spasi2);
+
+//Soal 3
+class MyQueue {
+    constructor() {
+        this.stack1 = [];
+        this.stack2 = [];
+    }
+    
+    push(x) {
+        this.stack1.push(x);
+    }
+    
+    pop() {
+        if (this.stack2.length === 0) {
+            while (this.stack1.length > 0) {
+                this.stack2.push(this.stack1.pop());
+            }
+        }
+        return this.stack2.pop();
+    }
+    
+    peek() {
+        if (this.stack2.length === 0) {
+            while (this.stack1.length > 0) {
+                this.stack2.push(this.stack1.pop());
+            }
+        }
+        return this.stack2[this.stack2.length - 1];
+    }
+    
+    empty() {
+        return this.stack1.length === 0 && this.stack2.length === 0;
+    }
+}
+
+const queue = new MyQueue();
+queue.push(1);
+queue.push(2);
+console.log(queue.peek());
+console.log(queue.pop());
+console.log(queue.empty());
+let spasi3 = "";
+console.log(spasi3);
+
+//Soal 4
+class ListNode {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+function reverseList(head) {
+    let prev = null;
+    let current = head;
+    while (current !== null) {
+        let nextNode = current.next;
+        current.next = prev;
+        prev = current;
+        current = nextNode;
+    }
+    return prev;
+}
+
+const head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = new ListNode(3);
+head.next.next.next = new ListNode(4);
+head.next.next.next.next = new ListNode(5);
+
+const reversedHead = reverseList(head);
+let current = reversedHead;
+while (current !== null) {
+    console.log(current.val);
+    current = current.next;
+}
+let spasi4 = "";
+console.log(spasi4);
+
+//Soal 5
+class DoubleNode {
+    constructor(value, prev = null, next = null) {
+        this.value = value;
+        this.prev = prev;
+        this.next = next;
+    }
+}
+
+function deleteNodes(head, target) {
+    let node = head;
+    while (node !== null) {
+        if (node.value === target) {
+            if (node.prev !== null) {
+                node.prev.next = node.next;
+            } else {
+                head = node.next;
+            }
+            if (node.next !== null) {
+                node.next.prev = node.prev;
+            }
+        }
+        node = node.next;
+    }
+    return head;
+}
+
+const start = new DoubleNode(1);
+start.next = new DoubleNode(2, start);
+start.next.next = new DoubleNode(3, start.next);
+start.next.next.next = new DoubleNode(2, start.next.next);
+start.next.next.next.next = new DoubleNode(4, start.next.next.next);
+
+const modifiedHead = deleteNodes(start, 2);
+let iterator = modifiedHead;
+while (iterator !== null) {
+    console.log(iterator.value);
+    iterator = iterator.next;
+}
